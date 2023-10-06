@@ -1,0 +1,6 @@
+node_modules/
+.dbdata/
+my-custom.cnf
+.env
+data/
+redis-data/

@@ -1,0 +1,43 @@
+version: '2.21.0'
+services:
+  server:
+    build: .
+    ports:
+      - '8000:3000'
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - custom_network
+
+  db:
+    image: mysql/mysql-server:8.0
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      wait_timeout: 28800 # 8 hours
+      max_allowed_packet: 1073741824 # 1GB
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ambassador
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - custom_network
+
+  redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    networks:
+      - custom_network
+    volumes:
+      - ./redis-data:/data
+
+networks:
+  custom_network:
+    driver: bridge
