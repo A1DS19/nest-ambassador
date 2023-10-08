@@ -4,4 +4,5 @@ import { AbstractService } from 'src/shared/abstract.service';
 export declare class ProductService extends AbstractService<Product> {
     private readonly productRepository;
     constructor(productRepository: Repository<Product>);
+    paginate(page: number, limit: number): Promise<Product[]>;
 }

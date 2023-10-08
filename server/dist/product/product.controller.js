@@ -30,11 +30,16 @@ let ProductController = ProductController_1 = class ProductController {
     async getProducts(request) {
         const params = request.query;
         if (params) {
-            const values = Object.values(params);
-            const products = await this.productService.findAll();
-            return products.filter((product) => {
-                return values.includes(product.title.toString());
-            });
+            if (params.page && params.limit) {
+                const page = Number(params.page);
+                const limit = Number(params.limit);
+                return await this.productService.paginate(page, limit);
+            }
+            if (params.title) {
+                return await this.productService.findAll({
+                    where: { title: params.title },
+                });
+            }
         }
         return await this.productService.findAll();
     }
@@ -69,7 +74,7 @@ let ProductController = ProductController_1 = class ProductController {
 };
 ProductController.cacheTTL = 30 * 60 * 1000;
 __decorate([
-    (0, common_1.Get)('normal'),
+    (0, common_1.Get)('paginate'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

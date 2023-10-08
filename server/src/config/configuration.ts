@@ -16,6 +16,11 @@ export interface IEnvConfig {
     PORT: number;
     DATABASE_NAME: string;
   };
+  STRIPE: {
+    SECRET_KEY: string;
+    PUBLISHABLE_KEY: string;
+    API_VERSION: string;
+  };
 }
 
 export default (): IEnvConfig => ({
@@ -35,5 +40,10 @@ export default (): IEnvConfig => ({
     HOST: process.env.REDIS_HOST,
     PORT: Number(process.env.REDIS_PORT) || 6379,
     DATABASE_NAME: process.env.REDIS_DATABASE_NAME,
+  },
+  STRIPE: {
+    SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+    API_VERSION: process.env.STRIPE_API_VERSION,
   },
 });

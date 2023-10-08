@@ -19,5 +19,6 @@ import { ProductListener } from './listeners/product.listener';
   ],
   controllers: [ProductController],
   providers: [ProductService, ProductListener],
+  exports: [ProductService],
 })
 export class ProductModule {}

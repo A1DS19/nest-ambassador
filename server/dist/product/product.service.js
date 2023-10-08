@@ -23,6 +23,13 @@ let ProductService = class ProductService extends abstract_service_1.AbstractSer
         super(productRepository);
         this.productRepository = productRepository;
     }
+    async paginate(page, limit) {
+        const skippedItems = (page - 1) * limit;
+        return await this.findAll({
+            skip: skippedItems,
+            take: limit,
+        });
+    }
 };
 ProductService = __decorate([
     (0, common_1.Injectable)(),

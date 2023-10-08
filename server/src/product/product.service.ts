@@ -12,4 +12,13 @@ export class ProductService extends AbstractService<Product> {
   ) {
     super(productRepository);
   }
+
+  async paginate(page: number, limit: number): Promise<Product[]> {
+    const skippedItems = (page - 1) * limit;
+
+    return await this.findAll({
+      skip: skippedItems,
+      take: limit,
+    });
+  }
 }

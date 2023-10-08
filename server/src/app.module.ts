@@ -9,11 +9,22 @@ import { OrderModule } from './order/order.module';
 import { LinkModule } from './link/link.module';
 import { SharedModule } from './shared/shared.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { CheckoutModule } from './checkout/checkout.module';
+import { StripeModule, StripeOptions } from 'nestjs-stripe';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [EnvConfig],
+    }),
+    StripeModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) =>
+        ({
+          apiKey: configService.get<string>('STRIPE_API_KEY'),
+          apiVersion: configService.get<string>('STRIPE_API_VERSION'),
+        } as StripeOptions),
+      inject: [ConfigService],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -37,6 +48,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     OrderModule,
     LinkModule,
     SharedModule,
+    CheckoutModule,
   ],
   controllers: [],
   providers: [],

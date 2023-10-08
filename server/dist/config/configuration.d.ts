@@ -16,6 +16,11 @@ export interface IEnvConfig {
         PORT: number;
         DATABASE_NAME: string;
     };
+    STRIPE: {
+        SECRET_KEY: string;
+        PUBLISHABLE_KEY: string;
+        API_VERSION: string;
+    };
 }
 declare const _default: () => IEnvConfig;
 export default _default;

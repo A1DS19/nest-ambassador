@@ -18,5 +18,10 @@ exports.default = () => ({
         PORT: Number(process.env.REDIS_PORT) || 6379,
         DATABASE_NAME: process.env.REDIS_DATABASE_NAME,
     },
+    STRIPE: {
+        SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+        PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+        API_VERSION: process.env.STRIPE_API_VERSION,
+    },
 });
 //# sourceMappingURL=configuration.js.map

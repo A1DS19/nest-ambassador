@@ -30,6 +30,7 @@ ProductModule = __decorate([
         ],
         controllers: [product_controller_1.ProductController],
         providers: [product_service_1.ProductService, product_listener_1.ProductListener],
+        exports: [product_service_1.ProductService],
     })
 ], ProductModule);
 exports.ProductModule = ProductModule;

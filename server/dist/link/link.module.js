@@ -27,6 +27,7 @@ LinkModule = __decorate([
         ],
         controllers: [link_controller_1.LinkController],
         providers: [link_service_1.LinkService],
+        exports: [link_service_1.LinkService],
     })
 ], LinkModule);
 exports.LinkModule = LinkModule;

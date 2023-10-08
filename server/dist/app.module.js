@@ -18,6 +18,8 @@ const order_module_1 = require("./order/order.module");
 const link_module_1 = require("./link/link.module");
 const shared_module_1 = require("./shared/shared.module");
 const event_emitter_1 = require("@nestjs/event-emitter");
+const checkout_module_1 = require("./checkout/checkout.module");
+const nestjs_stripe_1 = require("nestjs-stripe");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -25,6 +27,14 @@ AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 load: [configuration_1.default],
+            }),
+            nestjs_stripe_1.StripeModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                useFactory: (configService) => ({
+                    apiKey: configService.get('STRIPE_API_KEY'),
+                    apiVersion: configService.get('STRIPE_API_VERSION'),
+                }),
+                inject: [config_1.ConfigService],
             }),
             typeorm_1.TypeOrmModule.forRootAsync({
                 imports: [config_1.ConfigModule],
@@ -48,6 +58,7 @@ AppModule = __decorate([
             order_module_1.OrderModule,
             link_module_1.LinkModule,
             shared_module_1.SharedModule,
+            checkout_module_1.CheckoutModule,
         ],
         controllers: [],
         providers: [],

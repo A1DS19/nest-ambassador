@@ -36,18 +36,23 @@ export class ProductController {
     private eventEmitter: EventEmitter2,
   ) {}
 
-  @Get('normal')
+  @Get('paginate')
   async getProducts(@Req() request: Request): Promise<Product[]> {
     const params = request.query;
 
     if (params) {
-      const values = Object.values(params);
+      if (params.page && params.limit) {
+        const page = Number(params.page);
+        const limit = Number(params.limit);
 
-      const products = await this.productService.findAll();
+        return await this.productService.paginate(page, limit);
+      }
 
-      return products.filter((product) => {
-        return values.includes(product.title.toString());
-      });
+      if (params.title) {
+        return await this.productService.findAll({
+          where: { title: params.title as string },
+        });
+      }
     }
 
     return await this.productService.findAll();

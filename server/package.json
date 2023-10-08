@@ -41,11 +41,13 @@
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "mysql2": "^3.6.1",
+    "nestjs-stripe": "^1.0.0",
     "passport-jwt": "^4.0.1",
     "redis": "^4.6.10",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "stripe": "^13.9.0",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
